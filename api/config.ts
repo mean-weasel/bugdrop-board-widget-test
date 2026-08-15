@@ -4,8 +4,8 @@ import {
   noStoreJson,
   parseMode,
   publicModeConfig,
-} from "../src/config";
-import type { ServerRequest, ServerResponse } from "../src/config";
+} from "../src/config.js";
+import type { ServerRequest, ServerResponse } from "../src/config.js";
 
 export function handleConfig(request: Request): Response {
   if (request.method !== "GET") {
