@@ -5,9 +5,9 @@ import {
   noStoreJson,
   parseMode,
   parseViewer,
-} from "../src/config";
-import type { ServerRequest, ServerResponse } from "../src/config";
-import { signBoardToken } from "../src/token";
+} from "../src/config.js";
+import type { ServerRequest, ServerResponse } from "../src/config.js";
+import { signBoardToken } from "../src/token.js";
 
 const ALLOWED_QUERY_KEYS = new Set(["mode", "viewer"]);
 

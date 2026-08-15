@@ -1,5 +1,5 @@
-import { errorResponse, getModeConfig, noStoreJson } from "../src/config";
-import type { ServerRequest, ServerResponse } from "../src/config";
+import { errorResponse, getModeConfig, noStoreJson } from "../src/config.js";
+import type { ServerRequest, ServerResponse } from "../src/config.js";
 
 export function handleHealth(request: Request): Response {
   if (request.method !== "GET" && request.method !== "HEAD") {
