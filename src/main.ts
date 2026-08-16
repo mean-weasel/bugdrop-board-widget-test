@@ -101,7 +101,15 @@ async function mountBoard(): Promise<void> {
     script.dataset.mountSelector = "#board-mount";
     script.dataset.pollInterval = "1500";
     script.dataset.bugdropBoardLayout = "kanban";
-    script.addEventListener("error", showLoadError, { once: true });
+    const stopWatchingForBoard = hideLoadingWhenBoardMounts();
+    script.addEventListener(
+      "error",
+      () => {
+        stopWatchingForBoard();
+        showLoadError();
+      },
+      { once: true },
+    );
     document.body.append(script);
 
     setText("#build-status", `Build ${config.venueCommit.slice(0, 7)}`);
@@ -112,6 +120,19 @@ async function mountBoard(): Promise<void> {
   } catch {
     showLoadError();
   }
+}
+
+function hideLoadingWhenBoardMounts(): () => void {
+  const mount = document.querySelector("#board-mount");
+  if (!mount) throw new Error("Board mount is missing");
+
+  const observer = new MutationObserver(() => {
+    if (!mount.querySelector("[data-bugdrop-board-root]")) return;
+    mount.querySelector(".loading-card")?.remove();
+    observer.disconnect();
+  });
+  observer.observe(mount, { childList: true });
+  return () => observer.disconnect();
 }
 
 function validateConfig(value: unknown): PublicConfig {
