@@ -52,7 +52,7 @@ test.beforeEach(async ({ page }) => {
         host.setAttribute('data-test-token-endpoint', current.dataset.tokenEndpoint);
         const shadow = host.attachShadow({ mode: 'open' });
         shadow.innerHTML = '<section aria-label="Embedded request board"><p>Preview board loaded</p><button type="button">Submit an idea</button></section>';
-        mount.replaceChildren(host);
+        mount.append(host);
         })();
       `,
     });
@@ -77,6 +77,7 @@ test("embeds the fixed demo board for Ada without authority-bearing input", asyn
     "/api/board-token?mode=demo&viewer=ada",
   );
   await expect(host.locator("button")).toHaveAccessibleName("Submit an idea");
+  await expect(page.getByText("Loading the embedded board…")).toBeHidden();
   await expect(page.getByText("Build ccccccc")).toBeVisible();
 
   const viewport = page.viewportSize();
