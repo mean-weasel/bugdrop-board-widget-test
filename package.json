@@ -11,6 +11,7 @@
     "lint": "eslint . --max-warnings=0",
     "test": "vitest run test",
     "test:e2e": "playwright test",
+    "test:server-runtime": "node scripts/verify-server-runtime.mjs",
     "test:secret-scan": "vitest run test/secret-containment.test.ts",
     "typecheck": "tsc --noEmit"
   },

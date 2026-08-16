@@ -1,6 +1,6 @@
 import { SignJWT, importJWK, type JWK } from "jose";
 
-import type { ModeConfig, ViewerConfig } from "./config";
+import type { ModeConfig, ViewerConfig } from "./config.js";
 
 const TOKEN_TTL_SECONDS = 300;
 

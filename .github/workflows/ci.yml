@@ -27,6 +27,7 @@ jobs:
       - run: npm run lint
       - run: npm run format:check
       - run: npm run typecheck
+      - run: npm run test:server-runtime
       - run: npm test
       - run: npm run build
       - run: npm run test:secret-scan
