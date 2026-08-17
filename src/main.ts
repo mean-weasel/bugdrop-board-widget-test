@@ -100,7 +100,8 @@ async function mountBoard(): Promise<void> {
     script.dataset.tokenEndpoint = tokenEndpoint;
     script.dataset.mountSelector = "#board-mount";
     script.dataset.pollInterval = "1500";
-    script.dataset.bugdropBoardLayout = "kanban";
+    script.dataset.layout = "kanban";
+    script.dataset.composer = "collapsed";
     const stopWatchingForBoard = hideLoadingWhenBoardMounts();
     script.addEventListener(
       "error",

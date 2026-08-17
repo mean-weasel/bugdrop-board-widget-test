@@ -50,6 +50,8 @@ test.beforeEach(async ({ page }) => {
         host.setAttribute('data-bugdrop-board-root', '');
         host.setAttribute('data-test-board-id', current.dataset.boardId);
         host.setAttribute('data-test-token-endpoint', current.dataset.tokenEndpoint);
+        host.setAttribute('data-test-layout', current.dataset.layout ?? '');
+        host.setAttribute('data-test-composer', current.dataset.composer ?? '');
         const shadow = host.attachShadow({ mode: 'open' });
         shadow.innerHTML = '<section aria-label="Embedded request board"><p>Preview board loaded</p><button type="button">Submit an idea</button></section>';
         mount.append(host);
@@ -76,6 +78,8 @@ test("embeds the fixed demo board for Ada without authority-bearing input", asyn
     "data-test-token-endpoint",
     "/api/board-token?mode=demo&viewer=ada",
   );
+  await expect(host).toHaveAttribute("data-test-layout", "kanban");
+  await expect(host).toHaveAttribute("data-test-composer", "collapsed");
   await expect(host.locator("button")).toHaveAccessibleName("Submit an idea");
   await expect(page.getByText("Loading the embedded board…")).toBeHidden();
   await expect(page.getByText("Build ccccccc")).toBeVisible();
