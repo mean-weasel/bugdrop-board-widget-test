@@ -143,3 +143,16 @@ test("mode switching reaches the fixed alias and posts one empty token request",
   expect(tokenRequests[0]?.postData()).toBe("{}");
   expect(tokenRequests[0]?.headers()["content-type"]).toBe("application/json");
 });
+
+test("a directly entered mode URL moves to that mode's authorized origin", async ({
+  page,
+}) => {
+  await page.goto(`${DEMO_VENUE_ORIGIN}/?mode=ci&viewer=ada`);
+
+  await expect(page).toHaveURL(`${CI_VENUE_ORIGIN}/?mode=ci&viewer=ada`);
+  await expect(page.locator("[data-bugdrop-board-root]")).toBeVisible();
+  await expect(page.getByRole("link", { name: "CI" })).toHaveAttribute(
+    "aria-current",
+    "page",
+  );
+});
