@@ -89,6 +89,13 @@ async function mountBoard(): Promise<void> {
     });
     if (!response.ok) throw new Error("Configuration request failed");
     const config = validateConfig(await response.json());
+    const canonicalOrigin = config.venueOrigins[mode];
+    if (window.location.origin !== canonicalOrigin) {
+      window.location.replace(
+        `${canonicalOrigin}/?mode=${mode}&viewer=${viewer}`,
+      );
+      return;
+    }
     configureModeNavigation(config.venueOrigins, viewer);
     const tokenEndpoint = `${config.tokenEndpoint}&viewer=${viewer}`;
     assertTokenEndpoint(tokenEndpoint, mode, viewer);

@@ -19,7 +19,9 @@ or arbitrary identity. `/api/config` converts one allowed mode into public embed
 `/api/board-token` accepts exactly one mode and viewer, maps them to server-owned authority, and
 signs for at most five minutes. Both the request URL origin and its `Origin` header must equal the
 selected mode's fixed alias. The service refuses to start if demo and CI share either an alias or a
-board id. Mode links come only from these two server-configured aliases.
+board id. Mode links come only from these two server-configured aliases. A valid mode entered on the
+other alias moves to its canonical origin before the page requests a token, avoiding a broken `403`
+board without relaxing the origin check.
 
 ## Local development
 
